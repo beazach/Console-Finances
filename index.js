@@ -89,28 +89,72 @@ var finances = [
 ];
 
 // Creating variables for the analysis
-var
-var
-var
-var
+let total = 0;
+let change = 0;
+let average;
+let averageMath; //TO BE DELETD 
+let analysis;
+let net = 0;
+let changeArray = [];
+let netChangeSum = 0;
+let greatestIncreaseDate = '';
+let greatestIncreaseAmount = 0;
+let greatestDecreaseDate = '';
+let greatestDecreaseAmount = 0;
 
-// Analyses the total number of months in the dataset.
-Financial Analysis
-------------------
-Total Months: 
+// Computes the total number of months in the dataset.
+let months = finances.length;
 
-// Analyses the net total amount of Profit/Losses over the entire period.
+// Computes the net total amount of Profit/Losses over the entire period. Loops through the whole dataset with the for loop.
+for(let i = 0; i <finances.length; i++){
+    total += finances[i][1];
+ } 
 
-Total: 
+// Computes the average of the changes in Profit/Losses over the entire period.
+for(let i = 0; i <finances.length; i++){ 
+        change = finances[i][1] - net; // Change from month to month
+        net = finances[i][1]; //Current month's profit
+        changeArray.push(change); 
+        //console.log("net:" + net);
+        //console.log("change:" + change); //PROBLEM ARRAY shows index 0 as a change
+        //console.log("changeArray:" + changeArray);//PROBLEM ARRAY shows index 0 as a change
+}
 
-// Analyses the average of the changes in Profit/Losses over the entire period.
+ for(let i = 1; i <changeArray.length; i++){ //starting iteration at i=1, second month, as no changes occured in first month
+    netChangeSum += changeArray[i];
+    //console.log("net change sum: " + netChangeSum); //Adds all changes month by month BUT SHOWS VALUES, not changes 
+ }
+ 
+ average = netChangeSum / (finances.length -1) //GINA's CALCULATION
+ //console.log("Average Net change sum: " + average)
 
-Average Change: 
+ averageMath = Math.round((netChangeSum / 86) * 100) /100;
+ //console.log("Average Net change sum: " + averageMath) //WHY DISCREPANCY?!?
 
-// Analyses the greatest increase in profits (date and amount) over the entire period.
+// Computes the greatest increase and decrease in profits (date and amount) over the entire period.
+for(let i = 1; i <finances.length; i++){ //iterates from i = 1 when changes in P/L started to occur
+    change = finances[i][1] - net; 
+    net = finances[i][1]; 
+    changeArray.push(change); 
 
-Greatest Increase in Profits:
+    if (change > greatestIncreaseAmount) {
+        greatestIncreaseDate = finances[i - 1][0];
+        greatestIncreaseAmount = change;
+    }
+    if (change < greatestDecreaseAmount) {
+        greatestDecreaseDate = finances[i - 1][0];
+        greatestDecreaseAmount = change;
+    }
+}
 
-// Analyses the greatest decrease in profits (date and amount) over the entire period.
 
-Greatest Decrease in Profits:
+// Present Financial Analysis in Console
+
+analysis = "Financial Analysis" + "\n" +
+"--------------------" + "\n" +
+"Total number of months: " + months + "\n" +
+"Total Profits/Losses: $" + total.toLocaleString("en") + "\n" +
+"Average Change in Profits/Losses: $" + average.toFixed(2) + "\n" +
+"Greatest Increase in Profits: " + greatestIncreaseDate + ": " + "($" + greatestIncreaseAmount.toLocaleString("en") + ")" + "\n" +
+"Greatest Decrease in Profits: " + greatestDecreaseDate + ": " + "($" + greatestDecreaseAmount.toLocaleString("en") + ")" + "\n";
+console.log(analysis)
