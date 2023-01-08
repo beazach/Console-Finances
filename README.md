@@ -12,7 +12,7 @@ One of the main challenges was accounting for the lack of p/l changes in month 1
 
 ## Usage
 The code prints the analysis to the console.
-![alt text](images/screenshot.png)
+![alt text](images/Screenshot.png)
 
 ## Contact Details
 Please leave a note or get in touch about suggestions for code improvements, future projects and collaborations.
